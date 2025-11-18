@@ -11,7 +11,8 @@ export default function Hero() {
   const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const conRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
+  const leftEyeRef = useRef<HTMLDivElement>(null);
+  const rightEyeRef = useRef<HTMLDivElement>(null);
 
   // Parallax image
   useEffect(() => {
@@ -25,15 +26,33 @@ export default function Hero() {
         start: "top top",
         end: "bottom top",
         scrub: true,
+        // markers:true,
       },
     });
-
-    gsap.from(topRef.current,{
-      x:1500,
-
-    })
   }, []);
-  
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!leftEyeRef.current || !rightEyeRef.current || !imgRef.current)
+        return;
+
+      const rect = imgRef.current.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      const maxOffset = 1; // max pergerakan mata
+
+      const offsetX = ((mouseX - rect.width / 2) / rect.width) * maxOffset * 2;
+      const offsetY =
+        ((mouseY - rect.height / 2) / rect.height) * maxOffset * 2;
+
+      gsap.to(leftEyeRef.current, { x: offsetX, y: offsetY, duration: 0.1 });
+      gsap.to(rightEyeRef.current, { x: offsetX, y: offsetY, duration: 0.1 });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <div
@@ -42,13 +61,25 @@ export default function Hero() {
     >
       <div
         ref={conRef}
-        className="absolute p-2 md:p-0 container flex items-center justify-center flex-col gap-2"
+        className="absolute p-2 md:p-0 container flex items-center justify-center flex-col gap-2 overflow-hidden"
       >
         {/* Hero Image */}
-        <div className="img w-[230px] h-[230px] bg-[#FFF8ED] rounded-lg shadow-sm mb-10 overflow-hidden">
+        <div className="img relative w-[230px] h-[230px] bg-[#FFF8ED] rounded-lg shadow-sm mb-10 overflow-hidden">
+          <div
+            ref={leftEyeRef}
+            className="absolute w-2 h-2 bg-black rounded-full"
+            style={{ top: "66px", left: "89px" }} // sesuaikan posisi mata kiri
+          ></div>
+
+          {/* Mata kanan */}
+          <div
+            ref={rightEyeRef}
+            className="absolute w-2 h-2 bg-black rounded-full"
+            style={{ top: "66px", left: "127px" }} // sesuaikan posisi mata kanan
+          ></div>
           <img
             ref={imgRef}
-            src="/image/hero-image.png"
+            src="/image/hero-image2.png"
             alt="Hero"
             className="w-full h-full object-cover object-top scale-150"
           />
@@ -65,12 +96,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <div className="text-hero text-[34px] lg:text-[70px] font-bold text-center leading-tight mb-3">
-          <span ref={topRef} className="block">
-            I Build <span className="font-special">Full-Stack</span> Stuff
-          </span>
-          <div className="block">That Actually Works!</div>
-        </div>
+        <HeroText conRef={conRef} />
 
         {/* Description */}
         <div className="text-description text-gray-500 text-md text-[18px] lg:text-[22px] text-center max-w-xl">
