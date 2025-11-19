@@ -119,7 +119,7 @@ export default function Projects() {
       <div className="container  flex justify-center flex-col items-center px-5">
         {/* Header */}
         <div className="mb-16 text-center md:text-left">
-          <h2 className="text-[40px] lg:text-[60px] font-bold mb-4 text-zinc-900 dark:text-zinc-50">
+          <h2 className="text-[34px] lg:text-[70px] font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             Featured Projects
           </h2>
         </div>
@@ -143,19 +143,19 @@ export default function Projects() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="project-image max-w-full max-h-full"
+                    className="project-image max-w-full max-h-full scale-170"
                   />
                 </div>
               </div>
 
               {/* FOOTER DIPINDAH — TIDAK DISENTUH, HANYA DIPINDAH */}
               <div className="flex justify-between items-center mt-3">
-<span className="font-mono text-lg text-zinc-700 dark:text-zinc-300">
-  Dev.
-  <span className="dev-number inline-block">
-    {String(index + 1).padStart(3, "0")}
-  </span>
-</span>
+                <span className="font-mono text-lg text-zinc-700 dark:text-zinc-300">
+                  Dev.
+                  <span className="dev-number inline-block">
+                    {String(index + 1).padStart(3, "0")}
+                  </span>
+                </span>
 
                 <button
                   className="view-btn inline-flex items-center gap-2 px-4 py-2 bg-zinc-900 dark:bg-zinc-50 
