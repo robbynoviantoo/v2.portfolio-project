@@ -53,7 +53,7 @@ export default function CustomCursor() {
   }, []);
 
   return (
-    <>
+    <div className="hidden md:block">
       {/* Lingkaran inti */}
       <div
         ref={cursorRef}
@@ -67,6 +67,6 @@ export default function CustomCursor() {
         className="fixed top-0 left-0 w-7 h-7 pointer-events-none z-[9998] rounded-full border-1 border-dashed border-black"
         style={{ transform: "translate(-50%, -50%)" }}
       />
-    </>
+    </div>
   );
 }

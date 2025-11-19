@@ -119,7 +119,7 @@ export default function Hero() {
   return (
     <div
       ref={containerRef}
-  className="relative h-screen bg-[#F7F6F2] flex items-center justify-center bg-[url('/image/bg-hero.png')] bg-cover bg-center"
+  className="relative h-screen bg-[#F7F6F2] flex items-center justify-center bg-[url('/image/bg-hero.png')] dark:bg-[url('/image/bg-hero-dark.png')] bg-cover bg-center"
     >
       <div
         ref={conRef}

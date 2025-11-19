@@ -20,8 +20,8 @@ export default function RootLayout({
         <ThemeProviders>
           <CustomCursor />
           {/* <PageTransition>   */}
-          {/* <Nav /> */}
-          <Header />
+          <Nav />
+          {/* <Header /> */}
           <LenisProvider>{children}</LenisProvider>
           {/* </PageTransition> */}
         </ThemeProviders>

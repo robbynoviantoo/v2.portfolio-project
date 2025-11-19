@@ -4,38 +4,9 @@ import { ChevronRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ABOUT_DATA } from "@/app/data/about";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const aboutSections = [
-  {
-    id: "intro",
-    title: "A Bit About Me",
-    description:
-      "Hello! I'm a passionate full-stack developer with a love for creating beautiful and functional web experiences. With years of experience in both frontend and backend development, I strive to build applications that are not only powerful but also delightful to use.",
-    description2:
-      "Enjoy turning complex ideas into elegant, scalable solutions and constantly look for ways to refine both my workflow and the user experience.",
-    image: "/image/about-1.png",
-  },
-  {
-    id: "skills",
-    title: "My Skills",
-    description:
-      "I specialize in modern JavaScript frameworks like React and Next.js, with strong proficiency in TypeScript, Tailwind CSS, and various animation libraries like GSAP and Framer Motion. On the backend, I work with Node.js, Express, and databases like MongoDB and PostgreSQL.",
-    description2:
-"Exploring new tools and refining my technical approach, always seeking better patterns that improve performance, reliability, and code quality. Continuously learning to stay sharp and build with confidence.",
-    image: "/image/about-2.png",
-  },
-  {
-    id: "future",
-    title: "Looking Ahead",
-    description:
-      "I'm excited about the future of web development and the possibilities that emerging technologies bring. Whether it's exploring AI integration, optimizing performance, or pioneering new design patterns, I'm committed to continuous growth and innovation.",
-    description2:
-      "Driven by the idea of creating meaningful digital experiences and continually pushing myself to adapt, innovate, and contribute to the evolving tech landscape.",
-    image: "/image/about-3.png",
-  },
-];
 
 export default function About() {
   const descriptionRef = useRef<HTMLDivElement>(null);
@@ -50,93 +21,15 @@ export default function About() {
     sections.forEach((section, index) => {
       // index 0 di DOM = index 1 di aboutSections (karena skip intro)
       const contentIndex = index + 1;
-      const content = aboutSections[contentIndex];
-      const prevContent = aboutSections[contentIndex - 1];
-
-      const updateContent = (newContent: typeof aboutSections[0]) => {
-        gsap.to(titleRef.current, {
-          opacity: 0,
-          y: -20,
-          duration: 0.2,
-          ease: "power2.inOut",
-        });
-        gsap.to(textRef.current, {
-          opacity: 0,
-          y: -20,
-          duration: 0.2,
-          ease: "power2.inOut",
-        });
-        gsap.to(text2Ref.current, {
-          opacity: 0,
-          y: -20,
-          duration: 0.2,
-          ease: "power2.inOut",
-        });
-        gsap.to(imageRef.current, {
-          opacity: 0,
-          duration: 0.2,
-          ease: "power2.inOut",
-        });
-
-        setTimeout(() => {
-          if (titleRef.current) titleRef.current.innerHTML = newContent.title;
-          if (textRef.current)
-            textRef.current.innerHTML = newContent.description;
-          if (text2Ref.current)
-            text2Ref.current.innerHTML = newContent.description2;
-          if (imageRef.current) {
-            imageRef.current.style.backgroundImage = `url('${newContent.image}')`;
-          }
-
-          gsap.to(titleRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 0.3,
-            ease: "power2.inOut",
-          });
-          gsap.to(textRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 0.3,
-            ease: "power2.inOut",
-          });
-          gsap.to(text2Ref.current, {
-            opacity: 1,
-            y: 0,
-            duration: 0.3,
-            ease: "power2.inOut",
-          });
-          gsap.to(imageRef.current, {
-            opacity: 1,
-            duration: 0.3,
-            ease: "power2.inOut",
-          });
-        }, 200);
-      };
+      const content = ABOUT_DATA[contentIndex];
+      const prevContent = ABOUT_DATA[contentIndex - 1];
 
       ScrollTrigger.create({
         trigger: section,
         start: "top center",
-        end: "center center",
-        markers:true,
+        end: "top center",
         onEnter: () => {
-          updateContent(content);
-        },
-        onEnterBack: () => {
-          updateContent(prevContent);
-        },
-      });
-    });
-
-    // Add trigger untuk section pertama - ketika scroll ke atas dari skills
-    const firstSection = document.querySelector(".about-section");
-    if (firstSection) {
-      ScrollTrigger.create({
-        trigger: firstSection,
-        start: "top 80%",
-        onEnterBack: () => {
-          // Ketika scroll ke atas dari skills dan masuk ke area skills (dari bawah)
-          // Update ke intro
+          // Fade out and scale down
           gsap.to(titleRef.current, {
             opacity: 0,
             y: -20,
@@ -161,15 +54,78 @@ export default function About() {
             ease: "power2.inOut",
           });
 
+          // Update content and fade in with scale
+          setTimeout(() => {
+            if (titleRef.current) titleRef.current.innerHTML = content.title;
+            if (textRef.current)
+              textRef.current.innerHTML = content.description;
+            if (text2Ref.current)
+              text2Ref.current.innerHTML = content.description2;
+            if (imageRef.current) {
+              imageRef.current.style.backgroundImage = `url('${content.image}')`;
+            }
+
+            gsap.to(titleRef.current, {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.inOut",
+            });
+            gsap.to(textRef.current, {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.inOut",
+            });
+            gsap.to(text2Ref.current, {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.inOut",
+            });
+            gsap.to(imageRef.current, {
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.inOut",
+            });
+          }, 200);
+        },
+        onEnterBack: () => {
+          // Fade out and scale down
+          gsap.to(titleRef.current, {
+            opacity: 0,
+            y: -20,
+            duration: 0.2,
+            ease: "power2.inOut",
+          });
+          gsap.to(textRef.current, {
+            opacity: 0,
+            y: -20,
+            duration: 0.2,
+            ease: "power2.inOut",
+          });
+          gsap.to(text2Ref.current, {
+            opacity: 0,
+            y: -20,
+            duration: 0.2,
+            ease: "power2.inOut",
+          });
+          gsap.to(imageRef.current, {
+            opacity: 0,
+            duration: 0.2,
+            ease: "power2.inOut",
+          });
+
+          // Update content and fade in with scale
           setTimeout(() => {
             if (titleRef.current)
-              titleRef.current.innerHTML = aboutSections[0].title;
+              titleRef.current.innerHTML = prevContent.title;
             if (textRef.current)
-              textRef.current.innerHTML = aboutSections[0].description;
+              textRef.current.innerHTML = prevContent.description;
             if (text2Ref.current)
-              text2Ref.current.innerHTML = aboutSections[0].description2;
+              text2Ref.current.innerHTML = prevContent.description2;
             if (imageRef.current) {
-              imageRef.current.style.backgroundImage = `url('${aboutSections[0].image}')`;
+              imageRef.current.style.backgroundImage = `url('${prevContent.image}')`;
             }
 
             gsap.to(titleRef.current, {
@@ -198,7 +154,7 @@ export default function About() {
           }, 200);
         },
       });
-    }
+    });
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -208,13 +164,13 @@ export default function About() {
   return (
     <div id="about" className="relative">
       {/* Header Section */}
-      <div className="h-screen sticky top-0 z-10 flex items-center justify-center bg-white dark:bg-zinc-950">
+      <div className="h-screen sticky top-0 z-10 flex items-center justify-center bg-white dark:bg-zinc-900">
         <div className="container p-5 flex justify-center flex-col md:flex-row gap-10">
           {/* Kiri - Sticky Image */}
           <div className="flex-1 flex items-center justify-center">
             <div
               ref={imageRef}
-              className="w-[250px] h-[350px] md:w-[400px] md:h-[550px] bg-[url('/image/about-1.png')] rounded-lg shadow-lg bg-cover"
+              className="w-[250px] h-[350px] md:w-[400px] md:h-[550px] bg-[url('/image/about-1.png')] rounded-lg shadow-sm bg-cover"
             ></div>
           </div>
 
@@ -227,20 +183,26 @@ export default function About() {
               ref={titleRef}
               className="title text-[34px] lg:text-[70px] font-semibold mb-4 text-zinc-900 dark:text-zinc-50 transition-colors duration-300"
             >
-              {aboutSections[0].title}
+              A Bit About Me
             </div>
 
             <div
               ref={textRef}
               className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[80%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
             >
-              {aboutSections[0].description}
+              Hello! I'm a passionate full-stack developer with a love for
+              creating beautiful and functional web experiences. With years of
+              experience in both frontend and backend development, I strive to
+              build applications that are not only powerful but also delightful
+              to use.
             </div>
             <div
               ref={text2Ref}
               className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[80%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
             >
-              {aboutSections[0].description2}
+              I Enjoy turning complex ideas into elegant, scalable solutions and
+              constantly look for ways to refine both my workflow and the user
+              experience.
             </div>
 
             <button
@@ -261,7 +223,7 @@ export default function About() {
 
       {/* Content Sections - Triggers for scroll animation */}
       <div className="bg-zinc-50 dark:bg-zinc-900">
-        {aboutSections.slice(1).map((section, index) => (
+        {ABOUT_DATA.slice(1).map((section, index) => (
           <div
             key={section.id}
             className="about-section min-h-screen flex items-center justify-center p-5 border-b border-zinc-200 dark:border-zinc-800"
