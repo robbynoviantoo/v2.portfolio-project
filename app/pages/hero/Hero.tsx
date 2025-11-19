@@ -164,7 +164,7 @@ export default function Hero() {
         <HeroText conRef={conRef} />
 
         {/* Description */}
-        <div className="text-description text-gray-500 text-md text-[18px] lg:text-[22px] text-center max-w-xl">
+        <div className="text-description text-zinc-600 dark:text-zinc-400 text-md text-[18px] lg:text-[22px] text-center max-w-xl">
           Code, Bugs, and late-night coffee keep it all running
           <br /> I turn complex problems into clean, working solutions.
         </div>

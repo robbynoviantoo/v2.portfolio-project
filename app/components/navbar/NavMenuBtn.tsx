@@ -37,7 +37,7 @@ export default function NavMenuBtn({
         <button tabIndex={0} onClick={() => toggleHamburger(!active)}>
           <div
             className={cn(
-              "relative flex h-[70px] w-[70px] cursor-pointer transform items-center justify-center rounded-full bg-zinc-800 shadow-md ring-0 ring-gray-300 ring-opacity-30 transition-all duration-200 hover:ring-8 dark:bg-zinc-200",
+              "relative flex h-[70px] w-[70px] cursor-pointer transform items-center justify-center rounded-full bg-zinc-800 shadow-md ring-0 ring-gray-300 ring-opacity-30 transition-all duration-200 hover:ring-8 dark:bg-[#F7F6F2]",
               { "ring-4": active }
             )}
           >

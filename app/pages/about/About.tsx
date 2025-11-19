@@ -164,7 +164,7 @@ export default function About() {
   return (
     <div id="about" className="relative">
       {/* Header Section */}
-      <div className="h-screen sticky top-0 z-10 flex items-center justify-center bg-white dark:bg-zinc-900">
+      <div className="h-screen sticky top-0 z-10 flex items-center justify-center dark:bg-[#F7F6F2] bg-white">
         <div className="container p-5 flex justify-center flex-col md:flex-row gap-10">
           {/* Kiri - Sticky Image */}
           <div className="flex-1 flex items-center justify-center">
@@ -181,7 +181,7 @@ export default function About() {
           >
             <div
               ref={titleRef}
-              className="title text-[34px] lg:text-[70px] font-semibold mb-4 text-zinc-900 dark:text-zinc-50 transition-colors duration-300"
+              className="title text-[34px] lg:text-[70px] font-semibold mb-4 text-zinc-900 transition-colors duration-300"
             >
               A Bit About Me
             </div>

@@ -2,7 +2,7 @@ import { SKILL_DATA } from "@/app/data/skill-data";
 
 export default function Skill() {
   return (
-    <section className="min-h-screen flex items-center justify-center py-20">
+    <section className="min-h-screen bg-[#F7F6F2] dark:bg-zinc-900 flex items-center justify-center py-20">
       <div className="container md:max-w-[60%] mx-auto px-6">
 
         {/* Title */}
