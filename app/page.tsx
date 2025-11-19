@@ -3,6 +3,7 @@ import Link from "next/link";
 import Hero from "./pages/hero/Hero";
 import About from "./pages/about/About";
 import Skill from "./pages/skill/Skill";
+import Projects from "./pages/project/Project";
 
 export default function Home() {
   const sections = Array.from({ length: 30 }, (_, i) => i + 1);
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <About />
       <Skill />
+      <Projects />
     </main>
   );
 }
