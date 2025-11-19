@@ -57,50 +57,30 @@ export default function Projects() {
           overwrite: "auto",
         });
       });
-      cards.forEach((card) => {
-        const number = card.parentElement!.querySelector(".dev-number");
-        const arrow = card.parentElement!.querySelector(".arrow-icon");
+cards.forEach((card) => {
+  const wrapper = card.parentElement; // wrapper utama card + footer
+  const number = wrapper?.querySelector(".dev-number");
+  const arrow = wrapper?.querySelector(".arrow-icon");
 
-        if (number && arrow) {
-          // Timeline untuk angka rolling seperti bingo
-          const numberTl = gsap.timeline({ paused: true });
-          numberTl.to(number, {
-            y: -20,
-            opacity: 0,
-            duration: 0.15,
-            ease: "power2.in",
-          });
-          numberTl.set(number, { y: 20 });
-          numberTl.to(number, {
-            y: 0,
-            opacity: 1,
-            duration: 0.25,
-            ease: "power2.out",
-          });
+  if (number) {
+    const numberTl = gsap.timeline({ paused: true });
+    numberTl.to(number, { y: -20, opacity: 0, duration: 0.15, ease: "power2.in" });
+    numberTl.set(number, { y: 20 });
+    numberTl.to(number, { y: 0, opacity: 1, duration: 0.25, ease: "power2.out" });
 
-          // Timeline untuk arrow: naik lalu muncul lagi dari bawah
-          const arrowTl = gsap.timeline({ paused: true });
-          arrowTl.to(arrow, {
-            y: -10,
-            opacity: 0,
-            duration: 0.2,
-            ease: "power2.in",
-          });
-          arrowTl.set(arrow, { y: 10 });
-          arrowTl.to(arrow, {
-            y: 0,
-            opacity: 1,
-            duration: 0.25,
-            ease: "power2.out",
-          });
+    wrapper?.addEventListener("mouseenter", () => numberTl.restart());
+  }
 
-          // Trigger ketika hover card
-          card.addEventListener("mouseenter", () => {
-            numberTl.restart();
-            arrowTl.restart();
-          });
-        }
-      });
+  if (arrow) {
+    const arrowTl = gsap.timeline({ paused: true });
+    arrowTl.to(arrow, { y: -10, opacity: 0, duration: 0.2, ease: "power2.in" });
+    arrowTl.set(arrow, { y: 10 });
+    arrowTl.to(arrow, { y: 0, opacity: 1, duration: 0.25, ease: "power2.out" });
+
+    wrapper?.addEventListener("mouseenter", () => arrowTl.restart());
+  }
+});
+
     });
 
     return () => {
@@ -158,9 +138,9 @@ export default function Projects() {
                 </span>
 
                 <button
-                  className="view-btn inline-flex items-center gap-2 px-4 py-2 bg-zinc-900 dark:bg-zinc-50 
+                  className="view-btn flex justify-between items-center gap-2 px-6 py-2 bg-zinc-900 dark:bg-zinc-50 
       text-white dark:text-zinc-900 rounded-md font-medium 
-      hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300"
+      hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300 cursor-pointer"
                 >
                   Lihat
                   <ArrowUpRight className="arrow-icon w-5 h-5" />
