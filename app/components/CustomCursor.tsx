@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
-
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const trailRef = useRef<HTMLDivElement>(null);
@@ -32,7 +31,7 @@ export default function CustomCursor() {
       gsap.to(cursorRef.current, {
         x: mouseX,
         y: mouseY,
-        duration: 0.08,
+        duration: 0.2,
         ease: "power3.out",
         scale: 1.2,
         rotate: Math.random() * 15 - 7.5,
@@ -44,8 +43,8 @@ export default function CustomCursor() {
     // Smooth trailing dengan ticker
     gsap.ticker.add(() => {
       // Lerp untuk trailing: trailX/Y mendekati mouse
-      trailX += (mouseX - trailX) * 0.15;
-      trailY += (mouseY - trailY) * 0.15;
+      trailX += (mouseX - trailX) * 0.1;
+      trailY += (mouseY - trailY) * 0.1;
 
       setTrail({ x: trailX, y: trailY });
     });
@@ -58,14 +57,14 @@ export default function CustomCursor() {
       {/* Lingkaran inti */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-3 h-3 pointer-events-none z-[9999] rounded-full bg-black origin-center"
+        className="fixed top-0 left-0 w-2 h-2 pointer-events-none z-[9999] rounded-full bg-black origin-center"
         style={{ transform: "translate(-50%, -50%) scale(1)" }}
       />
 
       {/* Lingkaran trailing */}
       <div
         ref={trailRef}
-        className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9998] rounded-full border border-black/30"
+        className="fixed top-0 left-0 w-7 h-7 pointer-events-none z-[9998] rounded-full border-1 border-dashed border-black"
         style={{ transform: "translate(-50%, -50%)" }}
       />
     </>

@@ -24,7 +24,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 w-full px-2 flex justify-center z-[100]">
+    <header className="fixed hidden md:flex top-0 left-0 w-full px-2  justify-center z-[100]">
       <div
         ref={headerRef}
         className="flex items-center justify-between w-full max-w-4xl bg-white/70 backdrop-blur-sm

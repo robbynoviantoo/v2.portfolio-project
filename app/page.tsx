@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Hero from "./pages/hero/Hero";
 import About from "./pages/about/About";
+import Skill from "./pages/skill/Skill";
 
 export default function Home() {
   const sections = Array.from({ length: 30 }, (_, i) => i + 1);
@@ -10,6 +11,7 @@ export default function Home() {
     <main className="bg-zinc-50 dark:bg-zinc-900">
       <Hero />
       <About />
+      <Skill />
     </main>
   );
 }

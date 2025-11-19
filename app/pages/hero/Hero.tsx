@@ -13,23 +13,25 @@ export default function Hero() {
   const conRef = useRef<HTMLDivElement>(null);
   const leftEyeRef = useRef<HTMLDivElement>(null);
   const rightEyeRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
 
-  // Parallax image
-  useEffect(() => {
-    if (!imgRef.current || !conRef.current) return;
+  // // Parallax image
+  // useEffect(() => {
+  //   if (!imgRef.current || !conRef.current) return;
 
-    gsap.to(imgRef.current, {
-      y: 150,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-        // markers:true,
-      },
-    });
-  }, []);
+  //   gsap.to(imgRef.current, {
+  //     y: 150,
+  //     ease: "none",
+  //     scrollTrigger: {
+  //       trigger: containerRef.current,
+  //       start: "top top",
+  //       end: "bottom top",
+  //       scrub: true,
+  //       // markers:true,
+  //     },
+  //   });
+  // }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -54,10 +56,70 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    if (!cardRef.current || !nameRef.current) return;
+
+    const originalText = "Robby Novianto";
+    const finalText = "The Destroyer";
+
+    // Pastikan card tetap lebar saat teks berubah
+    const tempSpan = document.createElement("span");
+    tempSpan.style.visibility = "hidden";
+    tempSpan.style.position = "absolute";
+    tempSpan.style.whiteSpace = "nowrap";
+    tempSpan.innerText = finalText;
+    cardRef.current.appendChild(tempSpan);
+
+    const cardWidth = tempSpan.offsetWidth;
+    cardRef.current.style.width = `${cardWidth + 150}px`;
+    tempSpan.remove();
+
+    // Timeline animasi scroll
+    gsap.to(
+      {},
+      {
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: "top top+=350",
+          end: "bottom top+=100",
+          scrub: true,
+          // markers: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+
+            // Reset ke teks asli ketika scroll balik ke atas
+            if (progress === 0) {
+              nameRef.current!.innerText = originalText;
+              return;
+            }
+
+            // Efek acak karakter
+            const scrambled = finalText
+              .split("")
+              .map((char, i) => {
+                if (i / finalText.length < progress) return finalText[i];
+                const rand = String.fromCharCode(
+                  33 + Math.floor(Math.random() * 94)
+                );
+                return rand;
+              })
+              .join("");
+            nameRef.current!.innerText = scrambled;
+          },
+          // Tambahkan onRefresh untuk handle ketika scroll position direset
+          onRefresh: (self) => {
+            if (self.progress === 0) {
+              nameRef.current!.innerText = originalText;
+            }
+          },
+        },
+      }
+    );
+  }, []);
   return (
     <div
       ref={containerRef}
-      className="relative h-screen bg-[#F7F6F2] flex items-center justify-center"
+  className="relative h-screen bg-[#F7F6F2] flex items-center justify-center bg-[url('/image/bg-hero.png')] bg-cover bg-center"
     >
       <div
         ref={conRef}
@@ -68,14 +130,14 @@ export default function Hero() {
           <div
             ref={leftEyeRef}
             className="absolute w-2 h-2 bg-black rounded-full"
-            style={{ top: "66px", left: "89px" }} // sesuaikan posisi mata kiri
+            style={{ top: "66px", left: "89px" }}
           ></div>
 
           {/* Mata kanan */}
           <div
             ref={rightEyeRef}
             className="absolute w-2 h-2 bg-black rounded-full"
-            style={{ top: "66px", left: "127px" }} // sesuaikan posisi mata kanan
+            style={{ top: "66px", left: "127px" }}
           ></div>
           <img
             ref={imgRef}
@@ -86,12 +148,15 @@ export default function Hero() {
         </div>
 
         {/* Badge */}
-        <div className="card flex items-center gap-2 px-3 h-10 bg-white rounded-md shadow-sm mb-3">
+        <div
+          ref={cardRef}
+          className="card flex items-center gap-2 px-3 h-10 bg-white rounded-md shadow-sm mb-3"
+        >
           <span className="bg-red-100 text-red-600 text-sm font-medium px-2 py-0.5 rounded">
             Hey!
           </span>
           <span className="text-gray-500 text-lg">I'm</span>
-          <span className="text-gray-800 text-lg font-medium">
+          <span ref={nameRef} className="text-gray-800 text-lg font-medium">
             Robby Novianto
           </span>
         </div>

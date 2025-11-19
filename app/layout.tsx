@@ -5,6 +5,9 @@ import "./globals.css";
 import Header from "./pages/header/Header";
 import { ThemeProviders } from "./providers/ThemeProvider";
 
+export const metadata = {
+  title: "Portfolio | Robby Novianto",
+};
 
 export default function RootLayout({
   children,
@@ -14,12 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProviders
-        >
-          {/* <CustomCursor /> */}
+        <ThemeProviders>
+          <CustomCursor />
           {/* <PageTransition>   */}
           {/* <Nav /> */}
-          {/* <Header /> */}
+          <Header />
           <LenisProvider>{children}</LenisProvider>
           {/* </PageTransition> */}
         </ThemeProviders>
