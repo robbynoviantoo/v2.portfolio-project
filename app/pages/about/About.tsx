@@ -188,7 +188,7 @@ export default function About() {
 
             <div
               ref={textRef}
-              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[80%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
+              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[100%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
             >
               Hello! I'm a passionate full-stack developer with a love for
               creating beautiful and functional web experiences. With years of
@@ -198,7 +198,7 @@ export default function About() {
             </div>
             <div
               ref={text2Ref}
-              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[80%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
+              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[100%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
             >
               I Enjoy turning complex ideas into elegant, scalable solutions and
               constantly look for ways to refine both my workflow and the user
