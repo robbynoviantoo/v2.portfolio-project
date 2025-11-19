@@ -2,8 +2,8 @@ import { SKILL_DATA } from "@/app/data/skill-data";
 
 export default function Skill() {
   return (
-    <section className="min-h-screen bg-[#F7F6F2] dark:bg-zinc-900 flex items-center justify-center py-20">
-      <div className="container md:max-w-[60%] mx-auto px-6">
+    <section className="max-w-full bg-[#F7F6F2] dark:bg-zinc-900 flex items-center justify-center py-20">
+      <div className="container flex items-center justify-center flex-col md:max-w-[60%] mx-auto px-6">
 
         {/* Title */}
         <h2 className="text-[34px] lg:text-[70px] font-bold text-center leading-tight mb-10">
@@ -11,7 +11,7 @@ export default function Skill() {
         </h2>
 
         {/* Card */}
-        <div className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 backdrop-blur-sm shadow-sm rounded-lg p-1 border border-white/40">
+        <div className="bg-white container dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 backdrop-blur-sm shadow-sm rounded-lg p-1 border border-white/40">
           <div className="overflow-x-auto">
             <table className="w-full table-auto text-left border-collapse">
               <thead>
