@@ -138,3 +138,11 @@
   position: absolute;
   pointer-events: none; /* supaya tidak mengganggu mouse */
 }
+
+.circle {
+  --circle-size: 100px;
+  position: fixed;
+  pointer-events: none; /* wajib! */
+  top: 0;
+  left: 0;
+}

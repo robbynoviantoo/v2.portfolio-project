@@ -1,29 +1,50 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import { animatePageOut } from "@/app/lib/animation";
 
 export default function ButtonAbout() {
   const [visible, setVisible] = useState(false);
+
   const router = useRouter();
   const pathname = usePathname();
 
+  // Mouse position
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth follow
+  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 15 });
+  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 15 });
+
+  // Ref area about
+  const areaRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     const about = document.getElementById("about");
+    areaRef.current = about;
+
     if (!about) return;
 
-    const show = () => setVisible(true);
-    const hide = () => setVisible(false);
+    const enter = () => setVisible(true);
+    const leave = () => setVisible(false);
 
-    about.addEventListener("mouseenter", show);
-    about.addEventListener("mouseleave", hide);
+    const follow = (e: MouseEvent) => {
+      mouseX.set(e.clientX - 50); // -50 biar center (100px)
+      mouseY.set(e.clientY - 50);
+    };
+
+    about.addEventListener("mouseenter", enter);
+    about.addEventListener("mouseleave", leave);
+    about.addEventListener("mousemove", follow);
 
     return () => {
-      about.removeEventListener("mouseenter", show);
-      about.removeEventListener("mouseleave", hide);
+      about.removeEventListener("mouseenter", enter);
+      about.removeEventListener("mouseleave", leave);
+      about.removeEventListener("mousemove", follow);
     };
   }, []);
 
@@ -38,22 +59,28 @@ export default function ButtonAbout() {
       {visible && (
         <motion.div
           onClick={handleClick}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
+          style={{
+            position: "fixed",
+            top: smoothY,
+            left: smoothX,
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.25 }}
           className="
-            fixed bottom-10 right-10 z-[999]
-            px-5 py-3 rounded-lg shadow-lg
-            bg-zinc-900 dark:bg-zinc-50 
+            z-[999]
+            w-[100px] h-[100px]
+            rounded-full
+            bg-zinc-900 dark:bg-zinc-50
             text-white dark:text-zinc-900
-            flex items-center gap-2
+            flex flex-col items-center justify-center
+            cursor-pointer select-none
+            shadow-lg
             hover:bg-zinc-800 dark:hover:bg-zinc-200
-            cursor-pointer
           "
         >
-          <span>Contact Me</span>
-          <ChevronRight className="w-5 h-5" />
+          <span className="text-sm font-medium">Contact Me</span>
         </motion.div>
       )}
     </AnimatePresence>
