@@ -84,28 +84,28 @@ export default function Hero() {
           end: "bottom top+=100",
           scrub: true,
           // markers: true,
-          onUpdate: (self) => {
-            const progress = self.progress;
+onUpdate: (self) => {
+  const progress = self.progress;
 
-            // Reset ke teks asli ketika scroll balik ke atas
-            if (progress === 0) {
-              nameRef.current!.innerText = originalText;
-              return;
-            }
+  if (!nameRef.current) return; // ← FIX AMAN
 
-            // Efek acak karakter
-            const scrambled = finalText
-              .split("")
-              .map((char, i) => {
-                if (i / finalText.length < progress) return finalText[i];
-                const rand = String.fromCharCode(
-                  33 + Math.floor(Math.random() * 94)
-                );
-                return rand;
-              })
-              .join("");
-            nameRef.current!.innerText = scrambled;
-          },
+  if (progress === 0) {
+    nameRef.current.innerText = originalText;
+    return;
+  }
+
+  const scrambled = finalText
+    .split("")
+    .map((char, i) => {
+      if (i / finalText.length < progress) return finalText[i];
+      const rand = String.fromCharCode(33 + Math.floor(Math.random() * 94));
+      return rand;
+    })
+    .join("");
+
+  nameRef.current.innerText = scrambled;
+},
+
           // Tambahkan onRefresh untuk handle ketika scroll position direset
           onRefresh: (self) => {
             if (self.progress === 0) {

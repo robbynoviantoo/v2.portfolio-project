@@ -1,25 +1,26 @@
 export const ABOUT_DATA = [
   {
     id: "intro",
-    title: "A Bit About Me",
+    title: "About Me",
     description:
       "Hello! I'm a passionate full-stack developer with a love for creating beautiful and functional web experiences. With years of experience in both frontend and backend development, I strive to build applications that are not only powerful but also delightful to use.",
     description2:
       "I Enjoy turning complex ideas into elegant, scalable solutions and constantly look for ways to refine both my workflow and the user experience.",
     image: "/image/about-1.png",
   },
-  {
-    id: "skills",
-    title: "My Skills",
-    description:
-      "I specialize in modern JavaScript frameworks like React and Next.js, with strong proficiency in TypeScript, Tailwind CSS, and various animation libraries like GSAP and Framer Motion. On the backend, I work with Node.js, Express, and databases like MongoDB and PostgreSQL.",
-    description2:
-      "Exploring new tools and refining my technical approach, always seeking better patterns that improve performance, reliability, and code quality. Continuously learning and build with confidence.",
-    image: "/image/about-2.png",
-  },
+{
+  id: "skills",
+  title: "My Skills",
+  description:
+    "I specialize in modern JavaScript technologies such as React, Next.js, and TypeScript, combined with Tailwind CSS to create clean, responsive interfaces. I enjoy building interfaces that feel smooth and intuitive, often enhanced with animation libraries like GSAP and Framer Motion.",
+  description2:
+    "On the backend, I work with Node.js, Express, and databases like MongoDB and PostgreSQL to build reliable and scalable systems. I’m always exploring new tools, improving my workflow, and adopting better patterns to write efficient and maintainable code.",
+  image: "/image/about-2.png",
+},
+
   {
     id: "future",
-    title: "Looking Ahead",
+    title: "Future Path",
     description:
       "I'm excited about the future of web development and the possibilities that emerging technologies bring. Whether it's exploring AI integration, optimizing performance, or pioneering new design patterns, I'm committed to continuous growth and innovation.",
     description2:

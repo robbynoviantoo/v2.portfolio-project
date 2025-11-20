@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projectsData } from "@/app/lib/data/projects";
 import { ArrowUpRight } from "lucide-react";
+import TransitionLink from "@/app/components/TransitionLink";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,30 +58,49 @@ export default function Projects() {
           overwrite: "auto",
         });
       });
-cards.forEach((card) => {
-  const wrapper = card.parentElement; // wrapper utama card + footer
-  const number = wrapper?.querySelector(".dev-number");
-  const arrow = wrapper?.querySelector(".arrow-icon");
+      cards.forEach((card) => {
+        const wrapper = card.parentElement; // wrapper utama card + footer
+        const number = wrapper?.querySelector(".dev-number");
+        const arrow = wrapper?.querySelector(".arrow-icon");
 
-  if (number) {
-    const numberTl = gsap.timeline({ paused: true });
-    numberTl.to(number, { y: -20, opacity: 0, duration: 0.15, ease: "power2.in" });
-    numberTl.set(number, { y: 20 });
-    numberTl.to(number, { y: 0, opacity: 1, duration: 0.25, ease: "power2.out" });
+        if (number) {
+          const numberTl = gsap.timeline({ paused: true });
+          numberTl.to(number, {
+            y: -20,
+            opacity: 0,
+            duration: 0.15,
+            ease: "power2.in",
+          });
+          numberTl.set(number, { y: 20 });
+          numberTl.to(number, {
+            y: 0,
+            opacity: 1,
+            duration: 0.25,
+            ease: "power2.out",
+          });
 
-    wrapper?.addEventListener("mouseenter", () => numberTl.restart());
-  }
+          wrapper?.addEventListener("mouseenter", () => numberTl.restart());
+        }
 
-  if (arrow) {
-    const arrowTl = gsap.timeline({ paused: true });
-    arrowTl.to(arrow, { y: -10, opacity: 0, duration: 0.2, ease: "power2.in" });
-    arrowTl.set(arrow, { y: 10 });
-    arrowTl.to(arrow, { y: 0, opacity: 1, duration: 0.25, ease: "power2.out" });
+        if (arrow) {
+          const arrowTl = gsap.timeline({ paused: true });
+          arrowTl.to(arrow, {
+            y: -10,
+            opacity: 0,
+            duration: 0.2,
+            ease: "power2.in",
+          });
+          arrowTl.set(arrow, { y: 10 });
+          arrowTl.to(arrow, {
+            y: 0,
+            opacity: 1,
+            duration: 0.25,
+            ease: "power2.out",
+          });
 
-    wrapper?.addEventListener("mouseenter", () => arrowTl.restart());
-  }
-});
-
+          wrapper?.addEventListener("mouseenter", () => arrowTl.restart());
+        }
+      });
     });
 
     return () => {
@@ -139,8 +159,8 @@ cards.forEach((card) => {
 
                 <button
                   className="view-btn flex justify-between items-center gap-2 px-6 py-2 bg-zinc-900 dark:bg-zinc-50 
-      text-white dark:text-zinc-900 rounded-md font-medium 
-      hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300 cursor-pointer"
+                        text-white dark:text-zinc-900 rounded-md font-medium 
+                        hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300 cursor-pointer"
                 >
                   Lihat
                   <ArrowUpRight className="arrow-icon w-5 h-5" />
@@ -150,15 +170,13 @@ cards.forEach((card) => {
           ))}
         </div>
 
-        {/* Load More Button */}
         {hasMore && (
           <div className="flex justify-center">
-            <button
-              onClick={() => setDisplayCount((prev) => prev + 4)}
-              className="px-10 py-4 bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 rounded-lg  hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300 text-4xl"
-            >
-              Lihat Lebih Banyak
-            </button>
+            <TransitionLink
+              href="/project"
+              label="Lihat Lebih Banyak"
+              className="px-10 py-4 bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300 text-4xl inline-block"
+            />
           </div>
         )}
       </div>

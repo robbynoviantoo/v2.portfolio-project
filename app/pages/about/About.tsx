@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ABOUT_DATA } from "@/app/data/about";
+import ButtonAbout from "./ButtonAbout";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -163,6 +164,7 @@ export default function About() {
 
   return (
     <div id="about" className="relative">
+                  <ButtonAbout />
       {/* Header Section */}
       <div className="h-screen sticky top-0 z-10 flex items-center justify-center dark:bg-[#F7F6F2] bg-white">
         <div className="container p-5 flex justify-center flex-col md:flex-row gap-10">
@@ -205,18 +207,7 @@ export default function About() {
               experience.
             </div>
 
-            <button
-              className="
-                mt-4 px-4 py-3 w-fit
-                bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900
-                rounded-lg shadow-md
-                flex items-center gap-2
-                hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300
-              "
-            >
-              Contact Me
-              <ChevronRight className="w-5 h-5" />
-            </button>
+
           </div>
         </div>
       </div>
