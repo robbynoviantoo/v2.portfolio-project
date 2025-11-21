@@ -174,7 +174,7 @@ export default function Projects() {
           <div className="flex justify-center">
             <TransitionLink
               href="/project"
-              label="Lihat Lebih Banyak"
+              label="Projects"
               className="px-10 py-4 bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors duration-300 text-4xl inline-block"
             />
           </div>

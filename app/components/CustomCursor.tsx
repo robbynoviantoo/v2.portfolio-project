@@ -31,7 +31,7 @@ export default function CustomCursor() {
       gsap.to(cursorRef.current, {
         x: mouseX,
         y: mouseY,
-        duration: 0.2,
+        duration: 0.5,
         ease: "power3.out",
         scale: 1.2,
         rotate: Math.random() * 15 - 7.5,
@@ -57,14 +57,14 @@ export default function CustomCursor() {
       {/* Lingkaran inti */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-2 h-2 pointer-events-none z-[9999] rounded-full bg-black origin-center"
+        className="fixed top-0 left-0 w-[7px] h-[7px] pointer-events-none z-[9999] rounded-full bg-zinc-800 origin-center"
         style={{ transform: "translate(-50%, -50%) scale(1)" }}
       />
 
       {/* Lingkaran trailing */}
       <div
         ref={trailRef}
-        className="fixed top-0 left-0 w-7 h-7 pointer-events-none z-[9998] rounded-full border-1 border-dashed border-black"
+        className="fixed top-0 left-0 w-7 h-7 pointer-events-none z-[9998] rounded-full border-1 border-dashed border-zinc-800"
         style={{ transform: "translate(-50%, -50%)" }}
       />
     </div>

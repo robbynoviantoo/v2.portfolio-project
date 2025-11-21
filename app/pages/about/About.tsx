@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ABOUT_DATA } from "@/app/data/about";
+import { ABOUT_DATA } from "@/app/lib/about";
 import ButtonAbout from "./ButtonAbout";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -162,12 +162,37 @@ export default function About() {
     };
   }, []);
 
+  useEffect(() => {
+    const progressBar = document.getElementById("progressBar");
+    if (!progressBar) return;
+
+    // total height scrollable About section
+    const aboutSections = document.querySelectorAll(".about-section");
+    if (!aboutSections.length) return;
+
+    // timeline GSAP
+    gsap.to(progressBar, {
+      width: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.3, // smooth
+      },
+    });
+  }, []);
+
   return (
     <div id="about" className="relative">
-                  <ButtonAbout />
+      <ButtonAbout />
       {/* Header Section */}
       <div className="h-screen sticky top-0 z-10 flex items-center justify-center dark:bg-[#F7F6F2] bg-white">
-        <div className="container p-5 flex justify-center flex-col md:flex-row gap-10">
+        <div className="relative container p-5 flex justify-center flex-col md:flex-row gap-10">
+          <div
+            id="progressBar"
+            className="container absolute -bottom-20 left-0 h-1 bg-zinc-900 dark:bg-zinc-50 rounded-full w-0"
+          />
           {/* Kiri - Sticky Image */}
           <div className="flex-1 flex items-center justify-center">
             <div
@@ -190,7 +215,7 @@ export default function About() {
 
             <div
               ref={textRef}
-              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[100%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
+              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[100%] text-[16px] lg:text-[22px] leading-relaxed transition-colors duration-300"
             >
               Hello! I'm a passionate full-stack developer with a love for
               creating beautiful and functional web experiences. With years of
@@ -200,14 +225,12 @@ export default function About() {
             </div>
             <div
               ref={text2Ref}
-              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[100%] text-[16px] lg:text-[18px] leading-relaxed transition-colors duration-300"
+              className="text-description text-zinc-600 dark:text-zinc-400 mb-4 md:max-w-[100%] text-[16px] lg:text-[22px] leading-relaxed transition-colors duration-300"
             >
               I Enjoy turning complex ideas into elegant, scalable solutions and
               constantly look for ways to refine both my workflow and the user
               experience.
             </div>
-
-
           </div>
         </div>
       </div>
@@ -227,7 +250,7 @@ export default function About() {
                 <p className="text-[18px] lg:text-[20px] text-zinc-700 dark:text-zinc-300 leading-relaxed mb-8">
                   {section.description}
                 </p>
-                <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="flex items-center gap-4 text-md text-zinc-500 dark:text-zinc-400">
                   <span>Section {index + 2}</span>
                   <div className="h-1 w-8 bg-zinc-400 dark:bg-zinc-600 rounded-full"></div>
                 </div>

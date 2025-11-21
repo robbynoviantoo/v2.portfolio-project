@@ -1,16 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { useRouter, usePathname } from "next/navigation";
-import { animatePageOut } from "@/app/lib/animation";
+import TransitionLink from "@/app/components/TransitionLink";
 
 export default function ButtonAbout() {
   const [visible, setVisible] = useState(false);
-
-  const router = useRouter();
-  const pathname = usePathname();
 
   // Mouse position
   const mouseX = useMotionValue(0);
@@ -20,7 +15,6 @@ export default function ButtonAbout() {
   const smoothX = useSpring(mouseX, { stiffness: 100, damping: 15 });
   const smoothY = useSpring(mouseY, { stiffness: 100, damping: 15 });
 
-  // Ref area about
   const areaRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -33,7 +27,7 @@ export default function ButtonAbout() {
     const leave = () => setVisible(false);
 
     const follow = (e: MouseEvent) => {
-      mouseX.set(e.clientX - 50); // -50 biar center (100px)
+      mouseX.set(e.clientX - 50);
       mouseY.set(e.clientY - 50);
     };
 
@@ -48,17 +42,10 @@ export default function ButtonAbout() {
     };
   }, []);
 
-  const handleClick = () => {
-    if (pathname !== "/project") {
-      animatePageOut("/project", router);
-    }
-  };
-
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          onClick={handleClick}
           style={{
             position: "fixed",
             top: smoothY,
@@ -80,7 +67,14 @@ export default function ButtonAbout() {
             hover:bg-zinc-800 dark:hover:bg-zinc-200
           "
         >
-          <span className="text-sm font-medium">Contact Me</span>
+          {/* 🔥 TransitionLink yang klik-nya mengarah ke /project */}
+          <TransitionLink
+            href="/project"
+            label="Project"
+            className="w-full h-full flex items-center justify-center"
+          >
+            <span className="text-sm font-medium">Contact Me</span>
+          </TransitionLink>
         </motion.div>
       )}
     </AnimatePresence>

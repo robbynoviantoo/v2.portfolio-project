@@ -146,3 +146,12 @@
   top: 0;
   left: 0;
 }
+
+html, body {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+

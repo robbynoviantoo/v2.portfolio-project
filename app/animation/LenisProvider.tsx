@@ -14,7 +14,13 @@ export default function LenisProvider({ children }: Props) {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
+    // ⬅️ Tambahkan ini supaya Lenis bisa diakses global
+    if (typeof window !== "undefined") {
+      (window as any).lenis = lenis;
+    }
+
     let rafId: number;
+
     function raf(time: number) {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
@@ -25,10 +31,16 @@ export default function LenisProvider({ children }: Props) {
     return () => {
       try {
         cancelAnimationFrame(rafId);
-      } catch (e) {
-        // ignore
+      } catch {}
+
+      if (typeof (lenis as any).destroy === "function") {
+        (lenis as any).destroy();
       }
-      if (typeof (lenis as any).destroy === "function") (lenis as any).destroy();
+
+      // optional: bersihkan
+      if (typeof window !== "undefined") {
+        (window as any).lenis = null;
+      }
     };
   }, []);
 
